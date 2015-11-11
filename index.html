@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html ng-app="CSCI-5839_App">
+<head>
+   <title>CSCI-5839</title>
+   <meta charset="utf-8" />
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+   <!-- <link href="/lib/css/bootstrap.min.css" rel="stylesheet"> -->
+   <style>
+body {
+   padding-top: 50px;
+}
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.dragItem ul[dnd-list],
+.dragItem ul[dnd-list] > li {
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.dragItem ul[dnd-list] {
+   min-height: 42px;
+   padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.dragItem ul[dnd-list] .dndDraggingSource {
+   /*display: none;*/
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.dragItem ul[dnd-list] .dndPlaceholder {
+   display: block;
+   background-color: #ddd;
+   min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.dragItem ul[dnd-list] li {
+   background-color: #fff;
+   border: 1px solid #ddd;
+   border-top-right-radius: 4px;
+   border-top-left-radius: 4px;
+   display: block;
+   padding: 10px 15px;
+   margin-bottom: -1px;
+}
+
+.openhandCursor{
+   cursor:  url(lib/img/openhand.gif), default !important;
+}
+
+.navbar-header{
+   width: 100%;
+}
+
+#main_container{
+   margin-top: 30px;
+}
+
+.visualizations{
+   list-style:none;
+   padding-left:0;
+   text-align:center;
+}
+.visualizations li{
+   display: inline-block
+}
+.visualization{
+   max-width:100%;
+}
+   </style>
+</head>
+
+<body ng-controller="CSCI-5839_Controller">
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="#">CSCI 5839 Natural Language Visualization Project</a>
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="#">Home</a></li>
+            </ul>
+      </div>
+   </nav>
+
+   <div class="container" id="main_container">
+      <div class="dragItem row">
+         <div class="col-md-4">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title ng-binding">Available Keywords</h3>
+               </div>
+               <div class="panel-body" style="min-height: 600px; max-height: 600px;">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>
+                           Question Words:
+                        </p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <!-- The dnd-list directive allows to drop elements into it.
+                             The dropped data will be added to the referenced list -->
+                        <ul dnd-list="models.lists.QuestionWords"
+                           dnd-disable-if="true">
+                           <!-- The dnd-draggable directive makes an element draggable and will
+                                transfer the object that was assigned to it. If an element was
+                                dragged away, you have to remove it from the original list
+                                yourself using the dnd-moved attribute -->
+                           <li ng-repeat="item in models.lists.QuestionWords"
+                              dnd-draggable="item"
+                              dnd-effect-allowed="copy"
+                              class="openhandCursor"
+                              >{{item.label}}
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>
+                           Prepositions:
+                        </p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <ul dnd-list="models.lists.Prepositions"
+                           dnd-disable-if="true">
+                           <li ng-repeat="item in models.lists.Prepositions"
+                               dnd-draggable="item"
+                               dnd-effect-allowed="copy"
+                               class="openhandCursor"
+                               >{{item.label}}
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>
+                           Relation Words:
+                        </p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <ul dnd-list="models.lists.Relations"
+                           dnd-disable-if="true">
+                           <li ng-repeat="item in models.lists.Relations"
+                               dnd-draggable="item"
+                               dnd-effect-allowed="copy"
+                               class="openhandCursor"
+                               >{{item.label}}
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>
+                           Data Driven Words:
+                        </p>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <ul dnd-list="models.lists.DataWords"
+                           dnd-disable-if="true">
+                           <li ng-repeat="item in models.lists.DataWords"
+                               dnd-draggable="item"
+                               dnd-effect-allowed="copy"
+                               class="openhandCursor"
+                               >{{item.label}}
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title ng-binding">Keyword Builder</h3>
+               </div>
+               <div class="panel-body" style="min-height: 600px; max-height: 600px;">
+                  <ul dnd-list="models.lists.Builder"
+                      dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')"
+                      >
+                     <li ng-repeat="item in models.lists.Builder"
+                         dnd-draggable="item"
+                         dnd-effect-allowed="move"
+                         context-menu="menuOptions"
+                         class="openhandCursor"
+                         >{{item.label}}
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title ng-binding">Dynamic Visualization Builder</h3>
+               </div>
+               <div class="panel-body" style="min-height: 600px; max-height: 600px;">
+                  <ul class="visualizations">
+                     <li ng-repeat="img in models.images">
+                        <img ng-src="data/img/{{img.src}}" alt="{{img.alt}}" ng-show="img.show" class="visualization">
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div><!-- /.container -->
+
+   <!-- Placed at the end of the document so pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+   <!-- <script src="/lib/js/angular.min.js"></script> -->
+   <script src="lib/js/angular-drag-and-drop-lists.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+   <!-- <script src="/lib/js/jquery.min.js"></script> -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   <!-- <script src="/lib/js/bootstrap.min.js"></script> -->
+   <script src="lib/js/contextmenu.js"></script>
+   <script src="data/js/data.js"></script>
+
+   <script>
+      var app = angular.module("CSCI-5839_App", ['dndLists', 'ui.bootstrap.contextMenu']);
+      app.config(function($locationProvider) {
+        $locationProvider.html5Mode(
+          {
+            enabled: true,
+            requireBase: false
+          });
+      })
+      app.controller("CSCI-5839_Controller", function ($scope, $http, $location, $timeout)
+      {
+         var QW = 0;
+         var PW = 1;
+         var RW = 2;
+         var DW = 3;
+         var BW = 4;
+
+         $scope.loadData = function(){
+            var localData = {};
+            var dataWords = [];
+            for (var wordTypeIdx in data['defaultWords'])
+            {
+               var wordTypeName = data['defaultWords'][wordTypeIdx]['name'];
+               localData[wordTypeName] = [];
+
+               for (wordIdx in data['defaultWords'][wordTypeIdx]['data'])
+               {
+                  var word = data['defaultWords'][wordTypeIdx]['data'][wordIdx];
+                  var newItem = {
+                        label : word,
+                           id : $scope.newId(),
+                      created : new Date().getTime(),
+                       parent : parseInt(wordTypeIdx)
+                  };
+
+                  localData[wordTypeName].push(newItem);
+                  if (wordIdx == DW)
+                  {
+                     dataWords.push(word);
+                  }
+               }
+            }
+
+            var dataSetIdx = parseInt($location.search()['dataSet'], 10) || 0;
+            for (var wordIdx in data['dataSets'][dataSetIdx]["DataWords"])
+            {
+
+               var word = data['dataSets'][dataSetIdx]["DataWords"][wordIdx];
+
+               if (dataWords.indexOf(word) == -1)
+               {
+                  var newItem = {
+                        label : word,
+                           id : $scope.newId(),
+                      created : new Date().getTime(),
+                       parent : DW
+                  };
+                  localData["DataWords"].push(newItem);
+               }
+            }
+            localData['Builder'] = [];
+            return localData;
+         };
+
+         var IMG_Default = 0;
+         var IMG_Loading = 1;
+         var IMG_OFFSET  = 2;
+
+         $scope.loadImages = function(){
+            var images = [ {
+                              "src"  : "default.png",
+                              "alt"  : "Drag over a few Keywords to generate a Visualization",
+                              "show" : true
+                           },
+                           {
+                              "src"  : "spinner.gif",
+                              "alt"  : "Loading",
+                              "show" : false
+                           }
+                        ];
+
+            var dataSetIdx = parseInt($location.search()['dataSet'], 10) || 0;
+            var combos = data['dataSets'][dataSetIdx]["combinations"];
+
+            for (var comboIdx in combos)
+            {
+               var img = JSON.parse(JSON.stringify(combos[comboIdx]['img']));
+               img.show = false;
+               images.push(img)
+            }
+            return images;
+         };
+         $scope.newId = function(){
+             function s4() {
+              return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+             }
+             return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                    s4() + '-' + s4() + s4() + s4();
+         };
+
+         $scope.logEvent = function(message, event) {
+            console.log(message, '(triggered by the following', event.type, 'event)');
+            console.log(event);
+         };
+
+         $scope.logListEvent = function(action, event, index, external, type) {
+            var message = external ? 'External ' : '';
+            message += type + ' element is ' + action + ' position ' + index;
+            $scope.logEvent(message, event);
+         };
+
+         $scope.dropBuilder = function(event, index, item, external, type, allowedType) {
+            //$scope.logListEvent('Builder: dropped at', event, index, external, type);
+
+            var needToCheckWords = true;
+            if (item.parent == BW){
+               // find the current one and kill it
+               for (itemIdx in $scope.models.lists.Builder){
+                  if (item.id == $scope.models.lists.Builder[itemIdx].id){
+                     $scope.models.lists.Builder.splice(itemIdx, 1);
+                     needToCheckWords = false;
+
+                  }
+               }
+            }
+
+            item.built = new Date().getTime();
+            item.parent = BW;
+
+            if (needToCheckWords){
+               var words = [item.label];
+               for (itemIdx in $scope.models.lists.Builder){
+                  words.push($scope.models.lists.Builder[itemIdx].label);
+               }
+               $timeout(function(){$scope.checkWords(words)}, 100);
+            }
+            return item;
+         };
+
+         $scope.checkWords = function(words){
+            var img = undefined;
+
+            // search through all combinations and check for a full match
+            var combos = data['dataSets'][$scope.models.dataSetIdx]["combinations"];
+
+            for (var comboIdx in combos){
+               var matched = true;
+               var query = combos[comboIdx]['query'];
+               for (var wordIdx in query){
+                  if (words.indexOf(query[wordIdx]) == -1){
+                     matched = false;
+                     break;
+                  }
+               }
+
+               if (matched){
+                  img = combos[comboIdx]["img"];
+               }
+            }
+
+            if (img != undefined){
+               $scope.hideAllImages();
+               $scope.models.images[IMG_Loading].show = true;
+               $timeout(function(){$scope.setImage(img)}, 1000);
+            }
+            else{
+               $scope.hideAllImages();
+               $scope.models.images[IMG_Default].show = true;
+            }
+         };
+
+         $scope.hideAllImages = function(){
+            for (imgIdx in $scope.models.images){
+               $scope.models.images[imgIdx].show = false;
+            }
+         };
+
+         $scope.setImage = function(img){
+            for (imgIdx in $scope.models.images){
+               if ($scope.models.images[imgIdx].src == img.src){
+                  $scope.models.images[IMG_Loading].show = false;
+                  $scope.models.images[imgIdx].show = true;
+                  break;
+               }
+            }
+         };
+
+         $scope.models = {
+            selected   : null,
+            lists      : $scope.loadData(),
+            dataSetIdx : (parseInt($location.search()['dataSet'], 10) || 0),
+            images     : $scope.loadImages()
+         };
+
+         $scope.menuOptions = [
+            ['Delete', function($itemScope){
+               if ($itemScope.item.parent == BW){
+                  for (var idx = 0; idx < $scope.models.lists.Builder.length; idx++){
+                     if ($itemScope.item.id == $scope.models.lists.Builder[idx].id){
+                        $scope.models.lists.Builder.splice(idx, 1);
+                        var words = [];
+
+                        for (wordIdx in $scope.models.lists.Builder){
+                           words.push($scope.models.lists.Builder[wordIdx].label);
+                        }
+
+                        $timeout(function(){$scope.checkWords(words)}, 100);
+                        break;
+                     }
+                  }
+               }
+            }]
+         ];
+      });
+   </script>
+</body>
+</html>
