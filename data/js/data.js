@@ -36,7 +36,7 @@ data = {
             }*/
                {
                "name"       : "Task 1",
-               "question"   : "How does season and workday affect bike travel",
+               "question"   : "How does season and workday affect bike travel?",
                "query"      : ["How do","season","workday","affect","bike"],
                "img"        : [{
                                  "src" : "treeWorkday.png",
@@ -53,7 +53,7 @@ data = {
                },
                {
                "name"       : "Task 1",
-               "question"   : "How does the windspeed affect bike travel",
+               "question"   : "How does the windspeed affect bike travel?",
                "query"      : ["How do","wind","affect","bike"],
                "img"        : [{
                                  "src" : "treeWind.png",
@@ -62,7 +62,7 @@ data = {
                },
                 {
                 "name"       : "Task 1",
-                "question"   : "How does the temperature affect bike travel",
+                "question"   : "How does the temperature affect bike travel?",
                 "query"      : ["How do","temp","affect","bike"],
                 "img"        : [{
                                   "src" : "bubbleTemp.png",
@@ -75,7 +75,7 @@ data = {
                 },
                {
                "name"       : "Task 1",
-               "question"   : "How does the time of day affect bike travel",
+               "question"   : "How does the time of day affect bike travel?",
                "query"      : ["How do","time","affect","bike"],
                "img"        : [{
                                  "src" : "lineHour.png",
@@ -95,7 +95,7 @@ data = {
          "combinations" : [
             {
                "name"      : "Task 2",
-               "question"  : "For each country, plot the value of income per capita, value of life exptectancy, and change in population over time",
+               "question"  : "For each country, plot the value of income per capita, value of life expectancy, and change in population over time?",
                "query"     : ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"],
                "img"       : [
                                 {
@@ -127,7 +127,7 @@ data = {
                "query"     : ["life expectancy", "country", "over", "time"],
                "img"       : [{
                                  "src" : "linechart.png",
-                                 "alt" : "Line chart depicting life expectancy for United States, Canada, Mexico over time",
+                                 "alt" : "Line chart depicting life expectancy for United States, Canada, Mexico over time?",
                              }]
             }
 
