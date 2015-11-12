@@ -97,20 +97,20 @@ data = {
                "name"      : "Task 2",
                "question"  : "For each country, plot the value of income per capita, value of life exptectancy, and change in population over time",
                "query"     : ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"],
-               "img"       : [{
-                                 "src" : "bubblechart.jpg", //"3Dbarchart.jpg", "bulletchart.png",
-                                 "alt" : "Bubble chart showing income per capita, life expectancy, and population over time by country",
-                             },
-                             {
-                                 "src" : "3Dbarchart.jpg", 
-                                 "alt" : "3D bar chart showing income per capita, life expectancy, and population over time by country",
-                             },
-                             {
-                                 "src" : "bulletchart.png", 
-                                 "alt" : "Bullet chart showing income per capita, life expectancy, and population over time by country",
-                             },
+               "img"       : [
+                                {
+                                    "src" : "bubblechart.jpg", //"3Dbarchart.jpg", "bulletchart.png",
+                                    "alt" : "Bubble chart showing income per capita, life expectancy, and population over time by country",
+                                },
+                                {
+                                    "src" : "3Dbarchart.png",
+                                    "alt" : "3D bar chart showing income per capita, life expectancy, and population over time by country",
+                                },
+                                {
+                                    "src" : "bulletchart.png",
+                                    "alt" : "Bullet chart showing income per capita, life expectancy, and population over time by country",
+                                }
                              ]
-                             
             },
             {
                "name"      : "Task 2",
