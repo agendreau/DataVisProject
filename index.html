@@ -89,6 +89,7 @@ body {
 }
 .visualization{
    max-width:100%;
+   margin-top: 10px;
 }
 .panel-body{
    min-height: 600px;
@@ -279,7 +280,7 @@ body {
                var wordTypeName = data['defaultWords'][wordTypeIdx]['name'];
                localData[wordTypeName] = [];
 
-               for (wordIdx in data['defaultWords'][wordTypeIdx]['data'])
+               for (var wordIdx in data['defaultWords'][wordTypeIdx]['data'])
                {
                   var word = data['defaultWords'][wordTypeIdx]['data'][wordIdx];
                   var newItem = {
@@ -340,9 +341,11 @@ body {
 
             for (var comboIdx in combos)
             {
-               var img = JSON.parse(JSON.stringify(combos[comboIdx]['img']));
-               img.show = false;
-               images.push(img)
+               for (var imgIdx in combos[comboIdx]["img"]){
+                  var img = JSON.parse(JSON.stringify(combos[comboIdx]['img'][imgIdx]));
+                  img.show = false;
+                  images.push(img)
+               }
             }
             return images;
          };
@@ -373,7 +376,7 @@ body {
             var needToCheckWords = true;
             if (item.parent == BW){
                // find the current one and kill it
-               for (itemIdx in $scope.models.lists.Builder){
+               for (var itemIdx in $scope.models.lists.Builder){
                   if (item.id == $scope.models.lists.Builder[itemIdx].id){
                      $scope.models.lists.Builder.splice(itemIdx, 1);
                      needToCheckWords = false;
@@ -387,7 +390,7 @@ body {
 
             if (needToCheckWords){
                var words = [item.label];
-               for (itemIdx in $scope.models.lists.Builder){
+               for (var itemIdx in $scope.models.lists.Builder){
                   words.push($scope.models.lists.Builder[itemIdx].label);
                }
                $timeout(function(){$scope.checkWords(words)}, 100);
@@ -396,7 +399,7 @@ body {
          };
 
          $scope.checkWords = function(words){
-            var img = undefined;
+            var imgs = [];
 
             // search through all combinations and check for a full match
             var combos = data['dataSets'][$scope.models.dataSetIdx]["combinations"];
@@ -412,14 +415,14 @@ body {
                }
 
                if (matched){
-                  img = combos[comboIdx]["img"];
+                  imgs = combos[comboIdx]["img"];
                }
             }
 
-            if (img != undefined){
+            if (0 < imgs.length){
                $scope.hideAllImages();
                $scope.models.images[IMG_Loading].show = true;
-               $timeout(function(){$scope.setImage(img)}, 1000);
+               $timeout(function(){$scope.setImages(imgs)}, 1000);
             }
             else{
                $scope.hideAllImages();
@@ -428,17 +431,21 @@ body {
          };
 
          $scope.hideAllImages = function(){
-            for (imgIdx in $scope.models.images){
+            for (var imgIdx in $scope.models.images){
                $scope.models.images[imgIdx].show = false;
             }
          };
 
-         $scope.setImage = function(img){
-            for (imgIdx in $scope.models.images){
-               if ($scope.models.images[imgIdx].src == img.src){
-                  $scope.models.images[IMG_Loading].show = false;
-                  $scope.models.images[imgIdx].show = true;
-                  break;
+         $scope.setImages = function(imgs){
+            for (var matchedImgIdx = 0; matchedImgIdx < imgs.length; matchedImgIdx++){
+               var matchedImg = imgs[matchedImgIdx];
+               for (var existingImgIdx = IMG_OFFSET; existingImgIdx < $scope.models.images.length; existingImgIdx++){
+                  var existingImg = $scope.models.images[existingImgIdx];
+                  if (existingImg.src == matchedImg.src){
+                     $scope.models.images[IMG_Loading].show = false;
+                     $scope.models.images[existingImgIdx].show = true;
+                     break;
+                  }
                }
             }
          };
@@ -458,7 +465,7 @@ body {
                         $scope.models.lists.Builder.splice(idx, 1);
                         var words = [];
 
-                        for (wordIdx in $scope.models.lists.Builder){
+                        for (var wordIdx in $scope.models.lists.Builder){
                            words.push($scope.models.lists.Builder[wordIdx].label);
                         }
 
