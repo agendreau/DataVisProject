@@ -11,7 +11,7 @@ data = {
       },
       {
          "name": "Relations",
-         "data": ["map","effect", "time"]
+         "data": ["map","affect", "time"]
       },
       {
          "name": "DataWords",
@@ -36,8 +36,8 @@ data = {
             }*/
                {
                "name"       : "Task 1",
-               "question"   : "How does season and workday effect bike travel",
-               "query"      : ["How do","season","workday","effect","bike"],
+               "question"   : "How does season and workday affect bike travel",
+               "query"      : ["How do","season","workday","affect","bike"],
                "img"        : [{
                                  "src" : "treeWorkday.png",
                                  "alt" : "The numbers of bikers per season split by week/weekend"
@@ -53,8 +53,8 @@ data = {
                },
                {
                "name"       : "Task 1",
-               "question"   : "How does the windspeed effect bike travel",
-               "query"      : ["How do","wind","effect","bike"],
+               "question"   : "How does the windspeed affect bike travel",
+               "query"      : ["How do","wind","affect","bike"],
                "img"        : [{
                                  "src" : "treeWind.png",
                                  "alt" : "The number of bikers shown by windspeed"
@@ -62,8 +62,8 @@ data = {
                },
                 {
                 "name"       : "Task 1",
-                "question"   : "How does the temperature effect bike travel",
-                "query"      : ["How do","temp","effect","bike"],
+                "question"   : "How does the temperature affect bike travel",
+                "query"      : ["How do","temp","affect","bike"],
                 "img"        : [{
                                   "src" : "bubbleTemp.png",
                                   "alt" : "The number of bikers shown by temperature"
@@ -75,8 +75,8 @@ data = {
                 },
                {
                "name"       : "Task 1",
-               "question"   : "How does the time of day effect bike travel",
-               "query"      : ["How do","time","effect","bike"],
+               "question"   : "How does the time of day affect bike travel",
+               "query"      : ["How do","time","affect","bike"],
                "img"        : [{
                                  "src" : "lineHour.png",
                                  "alt" : "The number of bikers shown over time of day"
