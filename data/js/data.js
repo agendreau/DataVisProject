@@ -89,7 +89,17 @@ data = {
                "img"       : [{
                                  "src" : "bubblechart.jpg", //"3Dbarchart.jpg", "bulletchart.png",
                                  "alt" : "Bubble chart showing income per capita, life expectancy, and population over time by country",
-                             }]
+                             },
+                             {
+                                 "src" : "3Dbarchart.jpg", 
+                                 "alt" : "3D bar chart showing income per capita, life expectancy, and population over time by country",
+                             },
+                             {
+                                 "src" : "bulletchart.png", 
+                                 "alt" : "Bullet chart showing income per capita, life expectancy, and population over time by country",
+                             },
+                             ]
+                             
             },
             {
                "name"      : "Task 2",
