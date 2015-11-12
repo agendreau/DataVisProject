@@ -40,8 +40,16 @@ data = {
                "query"      : ["How do","season","workday","effect","bike"],
                "img"        : [{
                                  "src" : "treeWorkday.png",
-                                 "alt" : "The numbers of bikers per season split by week/weekend",
-                              }]
+                                 "alt" : "The numbers of bikers per season split by week/weekend"
+                              },
+                               {
+                                 "src" : "barWorkday.png",
+                                 "alt" : "The numbers of bikers per season split by week/weekend"
+                               },
+                               {
+                                 "src" : "heatWorkday.png",
+                                 "alt" : "The numbers of bikers per season split by week/weekend"
+                               }]
                },
                {
                "name"       : "Task 1",
@@ -50,22 +58,21 @@ data = {
                "img"        : [{
                                  "src" : "treeWind.png",
                                  "alt" : "The number of bikers shown by windspeed"
-                              },
-                              { // Just an example of how to match multiple images.
-                                //  Feel free to delete this and uncomment the next combination
-                                 "src" : "bubbleTemp.png",
-                                 "alt" : "The number of bikers shown by windspeed"
                               }]
                },
-               // {
-               // "name"       : "Task 1",
-               // "question"   : "How does the temperature effect bike travel",
-               // "query"      : ["How do","temp","effect","bike"],
-               // "img"        : [{
-               //                   "src" : "bubbleTemp.png",
-               //                   "alt" : "The number of bikers shown by temperature"
-               //                }]
-               // },
+                {
+                "name"       : "Task 1",
+                "question"   : "How does the temperature effect bike travel",
+                "query"      : ["How do","temp","effect","bike"],
+                "img"        : [{
+                                  "src" : "bubbleTemp.png",
+                                  "alt" : "The number of bikers shown by temperature"
+                               },
+                                {
+                                  "src" : "treeTemperature.png",
+                                  "alt" : "The number of bikers shown by temperature"
+                                }]
+                },
                {
                "name"       : "Task 1",
                "question"   : "How does the time of day effect bike travel",
@@ -73,7 +80,11 @@ data = {
                "img"        : [{
                                  "src" : "lineHour.png",
                                  "alt" : "The number of bikers shown over time of day"
-                              }]
+                              },
+                               {
+                                 "src" : "treeHour.png",
+                                 "alt" : "The number of bikers shown over time of day"
+                               }]
                }
             //, ...
          ]
