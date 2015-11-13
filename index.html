@@ -176,7 +176,8 @@ body {
                                     dnd-draggable="item"
                                     dnd-effect-allowed="copy"
                                     dnd-dragstart="eventDragStart()"
-                                    ng-mouseup="eventDragEnd()"
+                                    dnd-canceled="eventDragEnd()"
+                                    dnd-dragend="eventDragEnd()"
                                     class="openhandCursor"
                                     >{{item.label}}
                                  </li>
@@ -198,15 +199,18 @@ body {
                      <div class="panel-body keyword-builder-body">
                         <ul dnd-list="models.builderItems"
                            dnd-horizontal-list="true"
-                           dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')" >
+                           dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')"
+                           >
                            <li ng-repeat="item in models.builderItems"
                                dnd-draggable="item"
                                dnd-effect-allowed="move"
+                               dnd-dragstart="builderKwDragStart()"
+                               dnd-canceled="builderKwDragEnd()"
                                context-menu="menuOptions"
                                class="openhandCursor"
                                >{{item.label}}
                            </li>
-                           <li ng-show="draggingAKeyword" class="dndPlaceholder">
+                           <li class="dndPlaceholder">
                               Drop keyword here
                            </li>
                         </ul>
@@ -449,12 +453,20 @@ body {
          $scope.draggingAKeyword = false;
 
          $scope.eventDragStart = function(){
+            console.log("eventDragStart");
             $scope.draggingAKeyword = true;
          };
          $scope.eventDragEnd = function(){
+            console.log("eventDragEnd");
             $scope.draggingAKeyword = false;
          };
 
+         $scope.builderKwDragStart = function(){
+            console.log("builderKwDragStart");
+         }
+         $scope.builderKwDragEnd = function(){
+            console.log("builderKwDragEnd");
+         }
          $scope.models = {
             selected     : null,
             lists        : $scope.loadData(),
