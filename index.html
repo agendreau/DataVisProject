@@ -17,7 +17,8 @@ body {
  */
 .dragItem ul[dnd-list],
 .dragItem ul[dnd-list] > li {
-	position: relative;
+	/*position: relative;*/
+   display: block;
 }
 
 /**
@@ -25,7 +26,7 @@ body {
  * otherwise you can't drop to it once it's empty
  */
 .dragItem ul[dnd-list] {
-   min-height: 42px;
+   min-height: 36px;
    padding-left: 0px;
 }
 
@@ -47,7 +48,7 @@ body {
 .dragItem ul[dnd-list] .dndPlaceholder {
    display: block;
    background-color: #ddd;
-   min-height: 42px;
+   min-height: 36px;
 }
 
 /**
@@ -60,11 +61,13 @@ body {
 .dragItem ul[dnd-list] li {
    background-color: #fff;
    border: 1px solid #ddd;
-   border-top-right-radius: 4px;
-   border-top-left-radius: 4px;
-   display: block;
-   padding: 10px 15px;
-   margin-bottom: -1px;
+   border-radius: 4px;
+   /*border-top-left-radius: 4px;*/
+   /*display: block;*/
+   float:left;
+   padding: 6px 9px;
+   margin-right: 2px;
+   margin-bottom: 2px;
 }
 
 .openhandCursor{
@@ -91,10 +94,36 @@ body {
    max-width:100%;
    margin-top: 10px;
 }
+.available-keywords {
+   min-height: 640px;
+   max-height: 640px;
+}
+.keyword-builder {
+   min-height: 106px;
+   max-height: 106px;
+}
+.vis-builder{
+   min-height: 513px;
+   max-height: 513px;
+}
+.panel{
+   overflow: hidden;
+}
 .panel-body{
+
+}
+.available-keywords-body{
+   overflow-y: scroll;
    min-height: 600px;
    max-height: 600px;
-   overflow-y: scroll;
+}
+.keyword-builder-body{
+   min-height: 66px;
+   max-height: 66px;
+}
+.vis-builder-body{
+   min-height: 473px;
+   max-height: 473px;
 }
    </style>
 </head>
@@ -106,8 +135,8 @@ body {
             <a class="navbar-brand" href="#">CSCI 5839 Natural Language Visualization Project</a>
             <ul class="nav navbar-nav">
                <li class="active"><a href="#">Home</a></li>
-               <li class="active"><a href="index.html?dataSet=0" target="_blank">DataSet 0</a></li>
-               <li class="active"><a href="index.html?dataSet=1" target="_blank">DataSet 1</a></li>
+               <li class="active"><a href="index.html?dataSet=0" target="_blank">Bike Data Set</a></li>
+               <li class="active"><a href="index.html?dataSet=1" target="_blank">Life Expectancy Set</a></li>
             </ul>
       </div>
    </nav>
@@ -115,11 +144,11 @@ body {
    <div class="container" id="main_container">
       <div class="dragItem row">
          <div class="col-md-4">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary available-keywords">
                <div class="panel-heading">
                   <h3 class="panel-title ng-binding">Available Keywords</h3>
                </div>
-               <div class="panel-body">
+               <div class="panel-body available-keywords-body">
                   <div class="row">
                      <div class="col-md-12">
                         <p>
@@ -132,6 +161,7 @@ body {
                         <!-- The dnd-list directive allows to drop elements into it.
                              The dropped data will be added to the referenced list -->
                         <ul dnd-list="models.lists.QuestionWords"
+                           dnd-horizontal-list="true"
                            dnd-disable-if="true">
                            <!-- The dnd-draggable directive makes an element draggable and will
                                 transfer the object that was assigned to it. If an element was
@@ -140,6 +170,10 @@ body {
                            <li ng-repeat="item in models.lists.QuestionWords"
                               dnd-draggable="item"
                               dnd-effect-allowed="copy"
+
+                              dnd-dragstart="eventDragStart()"
+                              ng-mouseup="eventDragEnd()"
+
                               class="openhandCursor"
                               >{{item.label}}
                            </li>
@@ -156,6 +190,7 @@ body {
                   <div class="row">
                      <div class="col-md-12">
                         <ul dnd-list="models.lists.Prepositions"
+                           dnd-horizontal-list="true"
                            dnd-disable-if="true">
                            <li ng-repeat="item in models.lists.Prepositions"
                                dnd-draggable="item"
@@ -176,6 +211,7 @@ body {
                   <div class="row">
                      <div class="col-md-12">
                         <ul dnd-list="models.lists.Relations"
+                           dnd-horizontal-list="true"
                            dnd-disable-if="true">
                            <li ng-repeat="item in models.lists.Relations"
                                dnd-draggable="item"
@@ -196,6 +232,7 @@ body {
                   <div class="row">
                      <div class="col-md-12">
                         <ul dnd-list="models.lists.DataWords"
+                           dnd-horizontal-list="true"
                            dnd-disable-if="true">
                            <li ng-repeat="item in models.lists.DataWords"
                                dnd-draggable="item"
@@ -209,37 +246,46 @@ body {
                </div>
             </div>
          </div>
-         <div class="col-md-4">
-            <div class="panel panel-primary">
-               <div class="panel-heading">
-                  <h3 class="panel-title ng-binding">Keyword Builder</h3>
-               </div>
-               <div class="panel-body">
-                  <ul dnd-list="models.lists.Builder"
-                      dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')"
-                      >
-                     <li ng-repeat="item in models.lists.Builder"
-                         dnd-draggable="item"
-                         dnd-effect-allowed="move"
-                         context-menu="menuOptions"
-                         class="openhandCursor"
-                         >{{item.label}}
-                     </li>
-                  </ul>
+         <div class="col-md-8">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="panel panel-primary keyword-builder">
+                     <div class="panel-heading">
+                        <h3 class="panel-title ng-binding">Keyword Builder</h3>
+                     </div>
+                     <div class="panel-body keyword-builder-body">
+                        <ul dnd-list="models.lists.Builder"
+                           dnd-horizontal-list="true"
+                           dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')" >
+                           <li ng-repeat="item in models.lists.Builder"
+                               dnd-draggable="item"
+                               dnd-effect-allowed="move"
+                               context-menu="menuOptions"
+                               class="openhandCursor"
+                               >{{item.label}}
+                           </li>
+                           <li ng-show="draggingAKeyword" class="dndPlaceholder">
+                              Drop keyword here
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
                </div>
             </div>
-         </div>
-         <div class="col-md-4">
-            <div class="panel panel-primary">
-               <div class="panel-heading">
-                  <h3 class="panel-title ng-binding">Dynamic Visualization Builder</h3>
-               </div>
-               <div class="panel-body">
-                  <ul class="visualizations">
-                     <li ng-repeat="img in models.images">
-                        <img ng-src="data/img/{{img.src}}" alt="{{img.alt}}" ng-show="img.show" class="visualization">
-                     </li>
-                  </ul>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="panel panel-primary vis-builder">
+                     <div class="panel-heading">
+                        <h3 class="panel-title ng-binding">Dynamic Visualization Builder</h3>
+                     </div>
+                     <div class="panel-body vis-builder-body">
+                        <ul class="visualizations">
+                           <li ng-repeat="img in models.images">
+                              <img ng-src="data/img/{{img.src}}" alt="{{img.alt}}" ng-show="img.show" class="visualization">
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
@@ -375,6 +421,7 @@ body {
          $scope.dropBuilder = function(event, index, item, external, type, allowedType) {
             //$scope.logListEvent('Builder: dropped at', event, index, external, type);
 
+            $scope.draggingAKeyword = false;
             var needToCheckWords = true;
             if (item.parent == BW){
                // find the current one and kill it
@@ -397,6 +444,7 @@ body {
                }
                $timeout(function(){$scope.checkWords(words)}, 100);
             }
+
             return item;
          };
 
@@ -452,11 +500,22 @@ body {
             }
          };
 
+         $scope.draggingAKeyword = false;
+
+         $scope.eventDragStart = function(){
+            console.log("eventDragStart");
+            $scope.draggingAKeyword = true;
+         };
+         $scope.eventDragEnd = function(){
+            console.log("eventDragEnd");
+            $scope.draggingAKeyword = false;
+         };
+
          $scope.models = {
-            selected   : null,
-            lists      : $scope.loadData(),
-            dataSetIdx : (parseInt($location.search()['dataSet'], 10) || 0),
-            images     : $scope.loadImages()
+            selected    : null,
+            lists       : $scope.loadData(),
+            dataSetIdx  : (parseInt($location.search()['dataSet'], 10) || 0),
+            images      : $scope.loadImages(),
          };
 
          $scope.menuOptions = [
