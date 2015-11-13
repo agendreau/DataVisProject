@@ -250,6 +250,7 @@ body {
    <script src="data/js/data.js"></script>
 
    <script>
+      var DEFAULT_TIMEOUT = 500;
       var app = angular.module("CSCI-5839_App", ['dndLists', 'ui.bootstrap.contextMenu']);
       app.config(function($locationProvider) {
         $locationProvider.html5Mode(
@@ -419,14 +420,16 @@ body {
                }
             }
 
+            $scope.hideAllImages();
+            $scope.models.images[IMG_Loading].show = true;
             if (0 < imgs.length){
-               $scope.hideAllImages();
-               $scope.models.images[IMG_Loading].show = true;
-               $timeout(function(){$scope.setImages(imgs)}, 1000);
+               $timeout(function(){$scope.setImages(imgs)}, DEFAULT_TIMEOUT);
             }
             else{
-               $scope.hideAllImages();
-               $scope.models.images[IMG_Default].show = true;
+               $timeout(function(){
+                  $scope.models.images[IMG_Loading].show = false;
+                  $scope.models.images[IMG_Default].show = true;
+               }, DEFAULT_TIMEOUT);
             }
          };
 
