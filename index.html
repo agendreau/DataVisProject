@@ -125,6 +125,9 @@ body {
    min-height: 473px;
    max-height: 473px;
 }
+.data-set{
+   margin-bottom: 10px;
+}
    </style>
 </head>
 
@@ -149,98 +152,37 @@ body {
                   <h3 class="panel-title ng-binding">Available Keywords</h3>
                </div>
                <div class="panel-body available-keywords-body">
-                  <div class="row">
+                  <div class="row data-set" ng-repeat="wordList in models.lists">
                      <div class="col-md-12">
-                        <p>
-                           Question Words:
-                        </p>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <!-- The dnd-list directive allows to drop elements into it.
-                             The dropped data will be added to the referenced list -->
-                        <ul dnd-list="models.lists.QuestionWords"
-                           dnd-horizontal-list="true"
-                           dnd-disable-if="true">
-                           <!-- The dnd-draggable directive makes an element draggable and will
-                                transfer the object that was assigned to it. If an element was
-                                dragged away, you have to remove it from the original list
-                                yourself using the dnd-moved attribute -->
-                           <li ng-repeat="item in models.lists.QuestionWords"
-                              dnd-draggable="item"
-                              dnd-effect-allowed="copy"
-
-                              dnd-dragstart="eventDragStart()"
-                              ng-mouseup="eventDragEnd()"
-
-                              class="openhandCursor"
-                              >{{item.label}}
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <p>
-                           Prepositions:
-                        </p>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <ul dnd-list="models.lists.Prepositions"
-                           dnd-horizontal-list="true"
-                           dnd-disable-if="true">
-                           <li ng-repeat="item in models.lists.Prepositions"
-                               dnd-draggable="item"
-                               dnd-effect-allowed="copy"
-                               class="openhandCursor"
-                               >{{item.label}}
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <p>
-                           Relation Words:
-                        </p>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <ul dnd-list="models.lists.Relations"
-                           dnd-horizontal-list="true"
-                           dnd-disable-if="true">
-                           <li ng-repeat="item in models.lists.Relations"
-                               dnd-draggable="item"
-                               dnd-effect-allowed="copy"
-                               class="openhandCursor"
-                               >{{item.label}}
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <p>
-                           Data Driven Words:
-                        </p>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <ul dnd-list="models.lists.DataWords"
-                           dnd-horizontal-list="true"
-                           dnd-disable-if="true">
-                           <li ng-repeat="item in models.lists.DataWords"
-                               dnd-draggable="item"
-                               dnd-effect-allowed="copy"
-                               class="openhandCursor"
-                               >{{item.label}}
-                           </li>
-                        </ul>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <p>
+                                 {{wordList.name}}
+                              </p>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <!-- The dnd-list directive allows to drop elements into it.
+                                   The dropped data will be added to the referenced list -->
+                              <ul dnd-list="wordList.items"
+                                 dnd-horizontal-list="true"
+                                 dnd-disable-if="true">
+                                 <!-- The dnd-draggable directive makes an element draggable and will
+                                      transfer the object that was assigned to it. If an element was
+                                      dragged away, you have to remove it from the original list
+                                      yourself using the dnd-moved attribute -->
+                                 <li ng-repeat="item in wordList.items"
+                                    dnd-draggable="item"
+                                    dnd-effect-allowed="copy"
+                                    dnd-dragstart="eventDragStart()"
+                                    ng-mouseup="eventDragEnd()"
+                                    class="openhandCursor"
+                                    >{{item.label}}
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -254,10 +196,10 @@ body {
                         <h3 class="panel-title ng-binding">Keyword Builder</h3>
                      </div>
                      <div class="panel-body keyword-builder-body">
-                        <ul dnd-list="models.lists.Builder"
+                        <ul dnd-list="models.builderItems"
                            dnd-horizontal-list="true"
                            dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')" >
-                           <li ng-repeat="item in models.lists.Builder"
+                           <li ng-repeat="item in models.builderItems"
                                dnd-draggable="item"
                                dnd-effect-allowed="move"
                                context-menu="menuOptions"
@@ -314,20 +256,26 @@ body {
       })
       app.controller("CSCI-5839_Controller", function ($scope, $http, $location, $timeout)
       {
-         var QW = 0;
-         var PW = 1;
-         var RW = 2;
-         var DW = 3;
-         var BW = 4;
+         var XW = 0;
+         var DW = 0;
+         var BW = -1;
 
          $scope.loadData = function(){
-            var localData = {};
+            var localData = [];
             var dataWords = [];
             for (var wordTypeIdx in data['defaultWords'])
             {
+               var p = XW;
                var wordTypeName = data['defaultWords'][wordTypeIdx]['name'];
-               localData[wordTypeName] = [];
+               localData.push({
+                               "name"  : wordTypeName,
+                               "items" : []
+                              });
 
+               if (wordTypeName == "Data Driven Words"){
+                  DW = parseInt(wordTypeIdx, 10);
+                  p = DW;
+               }
                for (var wordIdx in data['defaultWords'][wordTypeIdx]['data'])
                {
                   var word = data['defaultWords'][wordTypeIdx]['data'][wordIdx];
@@ -335,11 +283,10 @@ body {
                         label : word,
                            id : $scope.newId(),
                       created : new Date().getTime(),
-                       parent : parseInt(wordTypeIdx)
+                       parent : p
                   };
-
-                  localData[wordTypeName].push(newItem);
-                  if (wordIdx == DW)
+                  localData[localData.length-1]["items"].push(newItem);
+                  if (wordTypeName == "Data Driven Words")
                   {
                      dataWords.push(word);
                   }
@@ -347,10 +294,10 @@ body {
             }
 
             var dataSetIdx = parseInt($location.search()['dataSet'], 10) || 0;
-            for (var wordIdx in data['dataSets'][dataSetIdx]["DataWords"])
+            for (var wordIdx in data['dataSets'][dataSetIdx]["Data Driven Words"])
             {
 
-               var word = data['dataSets'][dataSetIdx]["DataWords"][wordIdx];
+               var word = data['dataSets'][dataSetIdx]["Data Driven Words"][wordIdx];
 
                if (dataWords.indexOf(word) == -1)
                {
@@ -360,10 +307,9 @@ body {
                       created : new Date().getTime(),
                        parent : DW
                   };
-                  localData["DataWords"].push(newItem);
+                  localData[DW]["items"].push(newItem);
                }
             }
-            localData['Builder'] = [];
             return localData;
          };
 
@@ -425,9 +371,9 @@ body {
             var needToCheckWords = true;
             if (item.parent == BW){
                // find the current one and kill it
-               for (var itemIdx in $scope.models.lists.Builder){
-                  if (item.id == $scope.models.lists.Builder[itemIdx].id){
-                     $scope.models.lists.Builder.splice(itemIdx, 1);
+               for (var itemIdx in $scope.models.builderItems){
+                  if (item.id == $scope.models.builderItems[itemIdx].id){
+                     $scope.models.builderItems.splice(itemIdx, 1);
                      needToCheckWords = false;
 
                   }
@@ -439,8 +385,8 @@ body {
 
             if (needToCheckWords){
                var words = [item.label];
-               for (var itemIdx in $scope.models.lists.Builder){
-                  words.push($scope.models.lists.Builder[itemIdx].label);
+               for (var itemIdx in $scope.models.builderItems){
+                  words.push($scope.models.builderItems[itemIdx].label);
                }
                $timeout(function(){$scope.checkWords(words)}, 100);
             }
@@ -503,31 +449,30 @@ body {
          $scope.draggingAKeyword = false;
 
          $scope.eventDragStart = function(){
-            console.log("eventDragStart");
             $scope.draggingAKeyword = true;
          };
          $scope.eventDragEnd = function(){
-            console.log("eventDragEnd");
             $scope.draggingAKeyword = false;
          };
 
          $scope.models = {
-            selected    : null,
-            lists       : $scope.loadData(),
-            dataSetIdx  : (parseInt($location.search()['dataSet'], 10) || 0),
-            images      : $scope.loadImages(),
+            selected     : null,
+            lists        : $scope.loadData(),
+            builderItems : [],
+            dataSetIdx   : (parseInt($location.search()['dataSet'], 10) || 0),
+            images       : $scope.loadImages(),
          };
 
          $scope.menuOptions = [
             ['Delete', function($itemScope){
                if ($itemScope.item.parent == BW){
-                  for (var idx = 0; idx < $scope.models.lists.Builder.length; idx++){
-                     if ($itemScope.item.id == $scope.models.lists.Builder[idx].id){
-                        $scope.models.lists.Builder.splice(idx, 1);
+                  for (var idx = 0; idx < $scope.models.builderItems.length; idx++){
+                     if ($itemScope.item.id == $scope.models.builderItems[idx].id){
+                        $scope.models.builderItems.splice(idx, 1);
                         var words = [];
 
-                        for (var wordIdx in $scope.models.lists.Builder){
-                           words.push($scope.models.lists.Builder[wordIdx].label);
+                        for (var wordIdx in $scope.models.builderItems){
+                           words.push($scope.models.builderItems[wordIdx].label);
                         }
 
                         $timeout(function(){$scope.checkWords(words)}, 100);

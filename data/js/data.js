@@ -2,8 +2,12 @@ data = {
    "defaultWords":
    [
       {
-         "name": "QuestionWords",
+         "name": "Question Words",
          "data": ["How do", "How many", "How much", "When", "Value of"]
+      },
+      {
+         "name": "Data Driven Words",
+         "data": []
       },
       {
          "name": "Prepositions",
@@ -12,19 +16,15 @@ data = {
       {
          "name": "Relations",
          "data": ["map","affect", "time"]
-      },
-      {
-         "name": "DataWords",
-         "data": []
-      },
+      }
    ],
 
    "dataSets":
    [
       {
-         "name"         : "Data Set 1",
-         "DataWords"    : ["time","bike","workday","season","wind","temp"],
-         "combinations" : [
+         "name"              : "Data Set 1",
+         "Data Driven Words" : ["time","bike","workday","season","wind","temp"],
+         "combinations"      : [
             /*{
                "name"     : "Task 1",
                "question" : "How can we characterize the diffusion of images on Twitter in the aftermath of the Nepal earthquake?",
@@ -90,9 +90,9 @@ data = {
          ]
       },
       {
-         "name"       : "Data Set 2",
-         "DataWords"  : ["statistical", "distribution", "country", "income per capita", "life expectancy", "population"],
-         "combinations" : [
+         "name"              : "Data Set 2",
+         "Data Driven Words" : ["statistical", "distribution", "country", "income per capita", "life expectancy", "population"],
+         "combinations"      : [
             {
                "name"      : "Task 2",
                "question"  : "For each country, plot the value of income per capita, value of life expectancy, and change in population over time?",
