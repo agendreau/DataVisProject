@@ -128,6 +128,19 @@ body {
 .data-set{
    margin-bottom: 10px;
 }
+.builder-tgt{
+    background-image: url('lib/img/target.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35%;
+}
+.builder-tgt-bl{
+    background-image: url('lib/img/target_blank.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35%;
+}
+
    </style>
 </head>
 
@@ -200,7 +213,7 @@ body {
                         <ul dnd-list="models.builderItems"
                            dnd-horizontal-list="true"
                            dnd-drop="dropBuilder(event, index, item, external, type, 'containerType')"
-                           >
+                           ng-class="models.builder_tgt">
                            <li ng-repeat="item in models.builderItems"
                                dnd-draggable="item"
                                dnd-effect-allowed="move"
@@ -210,10 +223,8 @@ body {
                                class="openhandCursor"
                                >{{item.label}}
                            </li>
-                           <li class="dndPlaceholder">
-                              Drop keyword here
-                           </li>
                         </ul>
+                        &nbsp;
                      </div>
                   </div>
                </div>
@@ -372,7 +383,6 @@ body {
          $scope.dropBuilder = function(event, index, item, external, type, allowedType) {
             //$scope.logListEvent('Builder: dropped at', event, index, external, type);
 
-            $scope.draggingAKeyword = false;
             var needToCheckWords = true;
             if (item.parent == BW){
                // find the current one and kill it
@@ -453,15 +463,13 @@ body {
             }
          };
 
-         $scope.draggingAKeyword = false;
-
          $scope.eventDragStart = function(){
             console.log("eventDragStart");
-            $scope.draggingAKeyword = true;
+            $scope.models.builder_tgt = "builder-tgt";
          };
          $scope.eventDragEnd = function(){
             console.log("eventDragEnd");
-            $scope.draggingAKeyword = false;
+            $scope.models.builder_tgt = "builder-tgt-bl";
          };
 
          $scope.builderKwDragStart = function(){
@@ -471,11 +479,12 @@ body {
             console.log("builderKwDragEnd");
          }
          $scope.models = {
-            selected     : null,
-            lists        : $scope.loadData(),
-            builderItems : [],
-            dataSetIdx   : (parseInt($location.search()['dataSet'], 10) || 0),
-            images       : $scope.loadImages(),
+            selected       : null,
+            lists          : $scope.loadData(),
+            builderItems   : [],
+            dataSetIdx     : (parseInt($location.search()['dataSet'], 10) || 0),
+            images         : $scope.loadImages(),
+            builder_tgt    : "builder-tgt-bl",
          };
 
          $scope.menuOptions = [
