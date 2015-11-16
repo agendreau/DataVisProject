@@ -144,6 +144,22 @@ body {
    cursor: pointer;
 }
 
+.btn-nav{
+   color: #ffffff;
+   background-color: #777;
+   border-color: #555;
+}
+.btn-nav:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open .dropdown-toggle.btn-secondary{
+   color: #ffffff;
+   background-color: #888;
+   border-color: #444;
+}
+
+.jumbotron{
+   margin: 0;
+   padding: 5px;
+}
+
    </style>
 </head>
 
@@ -157,8 +173,29 @@ body {
                <li class="active"><a href="index.html?dataSet=0" target="_blank">Bike Data Set</a></li>
                <li class="active"><a href="index.html?dataSet=1" target="_blank">Life Expectancy Set</a></li>
             </ul>
+            <a href="#jumbotron_collapse" data-toggle="collapse" type="button" class="btn btn-nav navbar-btn pull-right">
+               <span id="jumbotron_collapse_button" class="glyphicon glyphicon-collapse-up"
+                  title="Toggle Information Panel"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  tooltip
+               ></span>
+            </a>
       </div>
    </nav>
+
+   <div class="collapse in" id="jumbotron_collapse">
+      <div class="jumbotron">
+         <div class="container">
+            <h2 ng-bind="models.dataSetInfo.title"></h2>
+            <p>
+               {{models.dataSetInfo.desc}}
+               <br />
+               Click the collapse button in the upper right corner to dismiss this message.
+            </p>
+         </div>
+      </div>
+   </div>
 
    <div class="container" id="main_container">
       <div class="dragItem row">
@@ -371,6 +408,15 @@ body {
             }
             return images;
          };
+
+         $scope.loadDataSetInfo = function(){
+            var dataSetIdx = parseInt($location.search()['dataSet'], 10) || 0;
+            return {
+                     "title" : data['dataSets'][dataSetIdx]["title"],
+                     "desc"  : data['dataSets'][dataSetIdx]["desc"],
+                   };
+         };
+
          $scope.newId = function(){
              function s4() {
               return Math.floor((1 + Math.random()) * 0x10000)
@@ -516,8 +562,8 @@ body {
             dataSetIdx     : (parseInt($location.search()['dataSet'], 10) || 0),
             images         : $scope.loadImages(),
             builder_tgt    : "builder-tgt-bl",
+            dataSetInfo    : $scope.loadDataSetInfo()
          };
-
 
          $scope.menuOptions = [
             ['Delete', function($itemScope){
@@ -541,6 +587,22 @@ body {
             }
          };
       });
+
+      $(document).ready(function() {
+         $('#jumbotron_collapse').on('show.bs.collapse',
+                                     function(){
+                                        $('#jumbotron_collapse_button')
+                                        .removeClass('glyphicon-collapse-down')
+                                        .addClass('glyphicon-collapse-up');
+                                     });
+         $('#jumbotron_collapse').on('hide.bs.collapse',
+                                     function(){
+                                        $('#jumbotron_collapse_button')
+                                        .removeClass('glyphicon-collapse-up')
+                                        .addClass('glyphicon-collapse-down');
+                                     });
+      });
+
    </script>
 </body>
 </html>

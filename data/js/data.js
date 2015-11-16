@@ -23,6 +23,8 @@ data = {
    [
       {
          "name"              : "Data Set 1",
+         "title"             : "IBM Watson Bike Data",
+         "desc"              : "Some text that describes the bike data and user's objective",
          "Data Driven Words" : ["time","bike","workday","season","wind","temp"],
          "combinations"      : [
             /*{
@@ -91,6 +93,8 @@ data = {
       },
       {
          "name"              : "Data Set 2",
+         "title"             : "Country Data",
+         "desc"              : "Some text that describes the country data and user's objective",
          "Data Driven Words" : ["statistical", "distribution", "country", "income per capita", "life expectancy", "population"],
          "combinations"      : [
             {
