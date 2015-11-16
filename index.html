@@ -140,6 +140,9 @@ body {
     background-position: center;
     background-size: 35%;
 }
+.pointer{
+   cursor: pointer;
+}
 
    </style>
 </head>
@@ -207,6 +210,16 @@ body {
                <div class="col-md-12">
                   <div class="panel panel-primary keyword-builder">
                      <div class="panel-heading">
+
+                        <div class="btn-group pull-right pointer"
+                           title="Reset Keyword Builder"
+                           data-toggle="tooltip"
+                           data-placement="top"
+                           ng-click="resetBuilder()"
+                           tooltip
+                           >
+                           <span class="glyphicon glyphicon-refresh" aria-hidden="true" />
+                        </div>
                         <h3 class="panel-title ng-binding">Keyword Builder</h3>
                      </div>
                      <div class="panel-body keyword-builder-body">
@@ -462,20 +475,30 @@ body {
          };
 
          $scope.delete = function(item){
-               for (var idx = 0; idx < $scope.models.builderItems.length; idx++){
-                  if (item.id == $scope.models.builderItems[idx].id){
-                     $scope.models.builderItems.splice(idx, 1);
-                     var words = [];
+            for (var idx = 0; idx < $scope.models.builderItems.length; idx++){
+               if (item.id == $scope.models.builderItems[idx].id){
+                  $scope.models.builderItems.splice(idx, 1);
+                  var words = [];
 
-                     for (var wordIdx in $scope.models.builderItems){
-                        words.push($scope.models.builderItems[wordIdx].label);
-                     }
-
-                     $timeout(function(){$scope.checkWords(words)}, 100);
-                     break;
+                  for (var wordIdx in $scope.models.builderItems){
+                     words.push($scope.models.builderItems[wordIdx].label);
                   }
+
+                  $timeout(function(){$scope.checkWords(words)}, 100);
+                  break;
                }
+            }
+         };
+
+         $scope.resetBuilder = function(){
+            $scope.deleteAll();
          }
+
+         $scope.deleteAll = function(){
+            $scope.models.builderItems = [];
+            $timeout(function(){$scope.checkWords([])}, 100);
+         };
+
          $scope.eventDragStart = function(){
             $scope.models.builder_tgt = "builder-tgt";
          };
@@ -503,6 +526,20 @@ body {
                }
             }]
          ];
+      });
+      app.directive('tooltip', function(){
+         return {
+            restrict: 'A',
+            link: function(scope, element, attrs){
+               $(element).hover(function(){
+                  // on mouseenter
+                  $(element).tooltip('show');
+               }, function(){
+                  // on mouseleave
+                  $(element).tooltip('hide');
+               });
+            }
+         };
       });
    </script>
 </body>
