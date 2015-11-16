@@ -24,7 +24,14 @@ data = {
       {
          "name"              : "Data Set 1",
          "title"             : "IBM Watson Bike Data",
-         "desc"              : "Some text that describes the bike data and user's objective",
+         "desc"              : "This is an example data set about bike riding used in Watson Analytics.\
+                                It provides information about the number of riders as well as information\
+                                such as season, time of day, day of the week, and weather information. ",
+         "questions"         : [ "How do season and workday affect bike travel?",
+                                 "How does the wind speed affect bike travel?",
+                                 "How does the temperature affect bike travel?",
+                                 "How does the time of day affect bike travel?"
+                                 ],
          "Data Driven Words" : ["time","bike","workday","season","wind","temp"],
          "combinations"      : [
             /*{
@@ -93,8 +100,15 @@ data = {
       },
       {
          "name"              : "Data Set 2",
-         "title"             : "Country Data",
-         "desc"              : "Some text that describes the country data and user's objective",
+         "title"             : "Live Expectancy Data",
+         "desc"              : "This data set contains census data related to Hans Rosling's 2006 TED Talk. \
+                                The data set contains income per capita, population, and life expectancy for \
+                                several countries since 1850. ",
+         "questions"         : [ "What is the life expectancy for United States, Canada, Mexico over time?",
+                                 "What is the statistical distribution of income per capita over time?",
+                                 "For each country, plot the value of income per capita, value of life \
+                                  expectancy, and change in population over time?",
+                                 ],
          "Data Driven Words" : ["statistical", "distribution", "country", "income per capita", "life expectancy", "population"],
          "combinations"      : [
             {

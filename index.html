@@ -154,9 +154,15 @@ body {
 
 .jumbotron{
    margin: 0;
-   padding: 5px;
+   /*padding: 5px;*/
 }
 
+.jumbotron p{
+   font-size: 14px;
+}
+
+.questions{
+}
    </style>
 </head>
 
@@ -167,8 +173,8 @@ body {
             <a class="navbar-brand" href="#">CSCI 5839 Natural Language Visualization Project</a>
             <ul class="nav navbar-nav">
                <li class="active"><a href="#">Home</a></li>
-               <li class="active"><a href="index.html?dataSet=0" target="_blank">Bike Data Set</a></li>
-               <li class="active"><a href="index.html?dataSet=1" target="_blank">Life Expectancy Set</a></li>
+               <li><a href="?dataSet=0" target="_self">Bike Data Set</a></li>
+               <li><a href="?dataSet=1" target="_self">Life Expectancy Set</a></li>
             </ul>
             <a href="#jumbotron_collapse" data-toggle="collapse" type="button" class="btn btn-nav navbar-btn pull-right">
                <span id="jumbotron_collapse_button" class="glyphicon glyphicon-collapse-up"
@@ -184,11 +190,42 @@ body {
    <div class="collapse in" id="jumbotron_collapse">
       <div class="jumbotron">
          <div class="container">
-            <h2 ng-bind="models.dataSetInfo.title"></h2>
+            <h3><b>CSCI 5839 Natural Language Visualization Project</b></h3>
+            <p>
+               This is a prototype of a tool that produces data visualizations based on user-created,
+               natural language queries for specific datasets. The query is built from a bank of
+               available keywords, including both keywords specific to the uploaded dataset and more
+               generic terms. This tool is meant to be used by academic researchers or business/financial
+               analysts who have a dataset to be analyzed. The user may or may not have specific research
+               questions--the system allows users to conduct preliminary exploration of their data as
+               well as ask very focused, specific research questions.
+            </p>
+            <p>
+               Please use the tool to answer a few questions about each dataset. The goal is to get
+               visualization(s) that answer the queries you build (aka this is when you have successfully
+               completed the task).
+            </p>
+            <h4><b>Data Set:</b> {{models.dataSetInfo.title}}</h4>
             <p>
                {{models.dataSetInfo.desc}}
-               <br />
-               Click the collapse button in the upper right corner to dismiss this message.
+            </p>
+            Questions:
+            <ul class="questions">
+               <li ng-repeat="question in models.questions">{{question}}</li>
+            </ul>
+            Notes:
+            <ul>
+               <li>
+                  This prototype only provides output for specific pre-defined queries based on the provided
+                  research questions, but a true implementation would provide visual output for any valid query.<br >
+               </li>
+               <li>
+                  This prototype has datasets built in, but the true implementation would allow users to upload
+                  any data file they would like.
+               </li>
+            </ul><br />
+            <p>
+               <b>Click the collapse button in the upper right corner to dismiss this message.</b>
             </p>
          </div>
       </div>
@@ -414,6 +451,11 @@ body {
                    };
          };
 
+         $scope.loadQuestions = function(){
+            var dataSetIdx = parseInt($location.search()['dataSet'], 10) || 0;
+            return data['dataSets'][dataSetIdx]["questions"];
+         };
+
          $scope.newId = function(){
              function s4() {
               return Math.floor((1 + Math.random()) * 0x10000)
@@ -559,7 +601,8 @@ body {
             dataSetIdx     : (parseInt($location.search()['dataSet'], 10) || 0),
             images         : $scope.loadImages(),
             builder_tgt    : "builder-tgt-bl",
-            dataSetInfo    : $scope.loadDataSetInfo()
+            dataSetInfo    : $scope.loadDataSetInfo(),
+            questions      : $scope.loadQuestions()
          };
 
          $scope.menuOptions = [
