@@ -469,6 +469,24 @@ body {
             return data['dataSets'][dataSetIdx]["questions"];
          };
 
+         $scope.loadBuilderItems = function(){
+            var preloadWords = [];
+            for (var wordTypeIdx in data['preloadWords']){
+               var newItem = {
+                    label : data['preloadWords'][wordTypeIdx],
+                       id : $scope.newId(),
+                  created : new Date().getTime(),
+                   parent : BW
+               };
+               preloadWords.push(newItem);
+            }
+
+            if (0 < preloadWords.length){
+               $timeout(function(){$scope.checkWords(data['preloadWords'])}, 200);
+            }
+            return preloadWords;
+         };
+
          $scope.newId = function(){
              function s4() {
               return Math.floor((1 + Math.random()) * 0x10000)
@@ -609,7 +627,7 @@ body {
          $scope.models = {
             selected       : null,
             lists          : $scope.loadData(),
-            builderItems   : [],
+            builderItems   : $scope.loadBuilderItems(),
             dataSetIdx     : (parseInt($location.search()['dataSet'], 10) || 0),
             images         : $scope.loadImages(),
             builder_tgt    : "builder-tgt-bl",

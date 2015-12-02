@@ -18,7 +18,7 @@ data = {
          "data": ["map","affect", "time"]
       }
    ],
-
+   "preloadWords" : [], // ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"], // debug only, set to [] before committing
    "dataSets":
    [
       {
