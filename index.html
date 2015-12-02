@@ -90,9 +90,16 @@ body {
 .visualizations li{
    display: inline-block
 }
+.vis-card{
+   -webkit-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+   -moz-box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+   margin-top: 20px;
+   width: 100%;
+}
 .visualization{
    max-width:100%;
-   margin-top: 10px;
+   margin-top: 20px;
 }
 .available-keywords {
    min-height: 640px;
@@ -122,6 +129,7 @@ body {
    max-height: 66px;
 }
 .vis-builder-body{
+   overflow-y: scroll;
    min-height: 473px;
    max-height: 473px;
 }
@@ -284,7 +292,6 @@ body {
                <div class="col-md-12">
                   <div class="panel panel-primary keyword-builder">
                      <div class="panel-heading">
-
                         <div class="btn-group pull-right pointer"
                            title="Reset Keyword Builder"
                            data-toggle="tooltip"
@@ -324,7 +331,10 @@ body {
                      <div class="panel-body vis-builder-body">
                         <ul class="visualizations">
                            <li ng-repeat="img in models.images">
-                              <img ng-src="data/img/{{img.src}}" alt="{{img.alt}}" ng-show="img.show" class="visualization">
+                              <img ng-src="data/img/{{img.src}}"
+                                   alt="{{img.alt}}"
+                                   ng-show="img.show"
+                                   ng-class="{'visualization':true, 'vis-card': $index > 1}">
                            </li>
                         </ul>
                      </div>
@@ -525,7 +535,7 @@ body {
                }
 
                if (matched){
-                  imgs = combos[comboIdx]["img"];
+                  imgs = imgs.concat(combos[comboIdx]["img"]);
                }
             }
 
@@ -556,7 +566,6 @@ body {
                   if (existingImg.src == matchedImg.src){
                      $scope.models.images[IMG_Loading].show = false;
                      $scope.models.images[existingImgIdx].show = true;
-                     break;
                   }
                }
             }
