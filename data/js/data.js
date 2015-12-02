@@ -3,20 +3,24 @@ data = {
    [
       {
          "name": "Question Words",
-         "data": ["How do", "How many", "How much", "When", "Value of"]
+         "data": ["How do/does", "Value of", "What is"]
       },
       {
          "name": "Data Driven Words",
          "data": []
       },
       {
+         "name": "Relations",
+         "data": ["affect", "time"]
+      },
+      {
          "name": "Prepositions",
          "data": ["over", "under", "for"]
       },
       {
-         "name": "Relations",
-         "data": ["map","affect", "time"]
-      }
+         "name": "Conjunctions",
+         "data": ["and", "or"]
+      },
    ],
    "preloadWords" : [], // ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"], // debug only, set to [] before committing
    "dataSets":
@@ -28,11 +32,11 @@ data = {
                                 It provides information about the number of riders as well as information\
                                 such as season, time of day, day of the week, and weather information. ",
          "questions"         : [ "How do season and workday affect bike travel?",
-                                 "How does the wind speed affect bike travel?",
+                                 "How does the wind affect bike travel?",
                                  "How does the temperature affect bike travel?",
                                  "How does the time of day affect bike travel?"
                                  ],
-         "Data Driven Words" : ["time","bike","workday","season","wind","temp"],
+         "Data Driven Words" : ["bike travel","workday","season","wind","temp"],
          "combinations"      : [
             /*{
                "name"     : "Task 1",
@@ -45,8 +49,8 @@ data = {
             }*/
                {
                "name"       : "Task 1",
-               "question"   : "How does season and workday affect bike travel?",
-               "query"      : ["How do","season","workday","affect","bike"],
+               "question"   : "How do season and workday affect bike travel?",
+               "query"      : ["How do/does","season","and","workday","affect","bike travel"],
                "img"        : [{
                                  "src" : "treeWorkday.png",
                                  "alt" : "The numbers of bikers per season split by week/weekend"
@@ -62,8 +66,8 @@ data = {
                },
                {
                "name"       : "Task 1",
-               "question"   : "How does the windspeed affect bike travel?",
-               "query"      : ["How do","wind","affect","bike"],
+               "question"   : "How does the wind affect bike travel?",
+               "query"      : ["How do/does","wind","affect","bike travel"],
                "img"        : [{
                                  "src" : "treeWind.png",
                                  "alt" : "The number of bikers shown by windspeed"
@@ -72,7 +76,7 @@ data = {
                 {
                 "name"       : "Task 1",
                 "question"   : "How does the temperature affect bike travel?",
-                "query"      : ["How do","temp","affect","bike"],
+                "query"      : ["How do/does","temp","affect","bike travel"],
                 "img"        : [{
                                   "src" : "bubbleTemp.png",
                                   "alt" : "The number of bikers shown by temperature"
@@ -85,7 +89,7 @@ data = {
                {
                "name"       : "Task 1",
                "question"   : "How does the time of day affect bike travel?",
-               "query"      : ["How do","time","affect","bike"],
+               "query"      : ["How do/does","time","affect","bike travel"],
                "img"        : [{
                                  "src" : "lineHour.png",
                                  "alt" : "The number of bikers shown over time of day"
@@ -141,7 +145,7 @@ data = {
             },
             {
                "name"      : "Task 2",
-               "question"  : "Life expectancy for United States, Canada, Mexico over time",
+               "question"  : "What is the life expectancy for United States, Canada, Mexico over time",
                "query"     : ["life expectancy", "country", "over", "time"],
                "img"       : [{
                                  "src" : "linechart.png",
