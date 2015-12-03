@@ -14,12 +14,8 @@ data = {
          "data": ["affect", "time"]
       },
       {
-         "name": "Prepositions",
-         "data": ["over", "under", "for"]
-      },
-      {
-         "name": "Conjunctions",
-         "data": ["and", "or"]
+         "name": "Grammatical Elements",
+         "data": ["over", "under", "for", "and", "or", "the", "a"]
       },
    ],
    "preloadWords" : [], // ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"], // debug only, set to [] before committing
@@ -104,11 +100,11 @@ data = {
       },
       {
          "name"              : "Data Set 2",
-         "title"             : "Live Expectancy Data",
+         "title"             : "Life Expectancy Data",
          "desc"              : "This data set contains census data related to Hans Rosling's 2006 TED Talk. \
                                 The data set contains income per capita, population, and life expectancy for \
                                 several countries since 1850. ",
-         "questions"         : [ "What is the life expectancy for United States, Canada, Mexico over time?",
+         "questions"         : [ "What is the life expectancy for a country over time?",
                                  "What is the statistical distribution of income per capita over time?",
                                  "For each country, plot the value of income per capita, value of life \
                                   expectancy, and change in population over time?",
@@ -118,7 +114,7 @@ data = {
             {
                "name"      : "Task 2",
                "question"  : "For each country, plot the value of income per capita, value of life expectancy, and change in population over time?",
-               "query"     : ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"],
+               "query"     : ["country", "Value of", "income per capita", "life expectancy", "population", "over", "time"],
                "img"       : [
                                 {
                                     "src" : "bubblechart.jpg", //"3Dbarchart.jpg", "bulletchart.png",
