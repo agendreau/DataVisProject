@@ -563,7 +563,16 @@ body {
                }
 
                if (matched){
-                  imgs = imgs.concat(combos[comboIdx]["img"]);
+                  newImgs = [];
+                  for (imgIdx in combos[comboIdx]["img"]){
+                     var newImg = {
+                          src : combos[comboIdx]["img"][imgIdx]["src"],
+                          alt : combos[comboIdx]["img"][imgIdx]["alt"],
+                        query : combos[comboIdx]["query"]
+                     };
+                     newImgs.push(newImg);
+                  }
+                  imgs = imgs.concat(newImgs);
                }
             }
 
@@ -588,16 +597,23 @@ body {
 
          $scope.setImages = function(imgs){
             $('.vis-carousel').slick({
-              infinite: true
+              infinite : true,
+                  dots : true
             });
             slideIndex = 1;
+
+            var first = true;
 
             for (var matchedImgIdx = 0; matchedImgIdx < imgs.length; matchedImgIdx++){
                var matchedImg = imgs[matchedImgIdx];
                for (var existingImgIdx = 0; existingImgIdx < $scope.models.images.length; existingImgIdx++){
                   var existingImg = $scope.models.images[existingImgIdx];
                   if (existingImg.src == matchedImg.src){
-                     addSlide($scope.models.images[existingImgIdx]);
+                     addSlide(matchedImg);
+                     if (first){
+                        highlight(matchedImg.query);
+                        first = false;
+                     }
                   }
                }
             }
@@ -662,6 +678,8 @@ body {
                }
             }]
          ];
+
+
       });
       app.directive('tooltip', function(){
          return {
@@ -678,6 +696,35 @@ body {
          };
       });
 
+      var slideIndex = 0;
+
+      var addSlide = function(img) {
+         var newSlide = '<div class="vis-slide">'+
+                        '   <img id="slideImg_'+slideIndex+'" src="data/img/'+img.src+'" alt="'+img.alt+'" class="vis-img">'+
+                        '   <div class="vis-caption">'+
+                        '      <h3>'+img.alt+'</h3>'+
+                        '   </div>'+
+                        '   <div id="slideQuery_'+slideIndex+'" style="display:none">'+img.query+'</div>'+
+                        '</div>';
+         $('.vis-carousel').slick('slickAdd', newSlide);
+         slideIndex++;
+      };
+
+      var removeAllSlides = function() {
+         while (1 < slideIndex){
+            $('.vis-carousel').slick('slickRemove', slideIndex - 2);
+            slideIndex--;
+         }
+      };
+
+      var redraw = function() {
+         setTimeout(function(){$(window).trigger('resize');}, 10);
+      };
+
+      var highlight = function(keywords){
+         console.log(keywords);
+      }
+
       $(document).ready(function() {
          $('#jumbotron_collapse').on('show.bs.collapse',
                                      function(){
@@ -690,31 +737,13 @@ body {
                                         $('#jumbotron_collapse_button')
                                         .removeClass('glyphicon-collapse-up')
                                         .addClass('glyphicon-collapse-down');
-                                     });
-         });
+                                    });
 
-      var slideIndex = 0;
-      var addSlide = function(img) {
-         var newSlide = '<div class="vis-slide">'+
-                        '   <img id="slideImg_'+slideIndex+'" src="data/img/'+img.src+'" alt="'+img.alt+'" class="vis-img">'+
-                        '   <div class="vis-caption">'+
-                        '      <h3>'+img.alt+'</h3>'+
-                        '   </div>'+
-                        '</div>';
-         $('.vis-carousel').slick('slickAdd', newSlide);
-         slideIndex++;
-      };
-      var removeAllSlides = function() {
-         while (1 < slideIndex){
-            $('.vis-carousel').slick('slickRemove', slideIndex - 2);
-            slideIndex--;
-         }
-      };
-
-      var redraw = function() {
-         setTimeout(function(){$(window).trigger('resize');}, 10);
-      }
-
+         $('.vis-carousel').on('afterChange',
+                               function(event, slick, currentSlide){
+                                  highlight($("#slideQuery_"+(currentSlide+1)).text().split(","));
+                               });
+      });
    </script>
 </body>
 </html>
