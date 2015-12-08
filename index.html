@@ -552,6 +552,7 @@ body {
 
             item.built = new Date().getTime();
             item.parent = BW;
+            item.id = $scope.newId();
 
             if (needToCheckWords){
                var words = [item.label];
