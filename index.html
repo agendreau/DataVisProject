@@ -201,6 +201,12 @@ body {
     font-weight: bold;
 }
 
+.selectedKeyword{
+   color: #fff;
+   font-weight: bold;
+   background-color: #337ab7 !important;
+}
+
    </style>
 </head>
 
@@ -228,7 +234,7 @@ body {
    <div class="collapse in" id="jumbotron_collapse">
       <div class="jumbotron">
          <div class="container">
-            <h3 class="thic">CSCI 5839 Natural Language Visualization Project</h3>
+            <h3 class="thick">CSCI 5839 Natural Language Visualization Project</h3>
             <p>
                This is a prototype of a tool that produces data visualizations based on user-created,
                natural language queries for specific datasets. The query is built from a bank of
@@ -349,7 +355,7 @@ body {
                                dnd-effect-allowed="move"
                                dnd-canceled="builderKwDragCanceled(item)"
                                context-menu="menuOptions"
-                               class="openhandCursor"
+                               class="openhandCursor queryItem"
                                >{{item.label}}
                            </li>
                         </ul>
@@ -591,6 +597,7 @@ body {
             $scope.models.defaultImg = false;
             $scope.models.carousel   = false;
             $scope.models.spinner    = true;
+            blurKeywords();
             if (0 < slideIndex){
                removeAllSlides();
                $('.vis-carousel').slick('unslick');
@@ -623,7 +630,7 @@ body {
                   if (existingImg.src == matchedImg.src){
                      addSlide(matchedImg);
                      if (first){
-                        highlight(matchedImg.query);
+                        highlightKeywords(matchedImg.query);
                         first = false;
                      }
                   }
@@ -690,8 +697,6 @@ body {
                }
             }]
          ];
-
-
       });
       app.directive('tooltip', function(){
          return {
@@ -733,9 +738,21 @@ body {
          setTimeout(function(){$(window).trigger('resize');}, 10);
       };
 
-      var highlight = function(keywords){
-         console.log(keywords);
-      }
+      var highlightKeywords = function(keywords){
+         for (kwIdx in keywords){
+            $(".queryItem").each(function(i, obj){
+               if (keywords[kwIdx] == $(this).html().trim()){
+                  $(this).addClass('selectedKeyword');
+               };
+            });
+         }
+      };
+
+      var blurKeywords = function(){
+         $(".queryItem").each(function(i, obj){
+            $(this).removeClass('selectedKeyword');
+         });
+      };
 
       $(document).ready(function() {
          $('#jumbotron_collapse').on('show.bs.collapse',
@@ -753,7 +770,8 @@ body {
 
          $('.vis-carousel').on('afterChange',
                                function(event, slick, currentSlide){
-                                  highlight($("#slideQuery_"+(currentSlide+1)).text().split(","));
+                                  blurKeywords();
+                                  highlightKeywords($("#slideQuery_"+(currentSlide+1)).text().split(","));
                                });
       });
    </script>
