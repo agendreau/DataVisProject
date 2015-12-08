@@ -287,7 +287,7 @@ body {
          <div class="col-md-4">
             <div class="panel panel-primary available-keywords">
                <div class="panel-heading">
-                  <h3 class="panel-title ng-binding">Available Keywords</h3>
+                  <h3 class="panel-title">Available Keywords</h3>
                </div>
                <div class="panel-body available-keywords-body">
                   <div class="row data-set" ng-repeat="wordList in models.lists">
@@ -332,18 +332,13 @@ body {
                <div class="col-md-12">
                   <div class="panel panel-primary keyword-builder">
                      <div class="panel-heading">
-                        <div class="btn-group pull-right pointer"
-
-                           data-toggle="tooltip"
-                           data-placement="top"
-                           ng-click="resetBuilder()"
-                           tooltip
-                           >
-                           <!-- <span class="glyphicon glyphicon-refresh" aria-hidden="true" />
-                           <span class="text" style="outline-style:solid;">Clear</span> -->
-                           <button type="button" class="btn-xs btn-default">Clear</button>
-                        </div>
-                        <h3 class="panel-title ng-binding">Query Builder</h3>
+                        <h3 class="panel-title pull-left">Query Builder</h3>
+                        <button class="btn btn-default btn-xs pull-right"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                ng-click="resetBuilder()"
+                                tooltip>Clear</button>
+                        <div class="clearfix"></div>
                      </div>
                      <div class="panel-body keyword-builder-body">
                         <ul dnd-list="models.builderItems"
@@ -368,7 +363,7 @@ body {
                <div class="col-md-12">
                   <div class="panel panel-primary vis-builder">
                      <div class="panel-heading">
-                        <h3 class="panel-title ng-binding">Dynamic Visualization Builder</h3>
+                        <h3 class="panel-title">Dynamic Visualization Builder</h3>
                      </div>
                      <div class="panel-body vis-builder-body">
                         <img src="data/img/default2.png"
