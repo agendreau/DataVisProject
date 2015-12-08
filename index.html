@@ -166,7 +166,11 @@ body {
 }
 
 .jumbotron p{
-   font-size: 14px;
+   font-size: 16px;
+}
+
+.jumbotron li{
+   font-size: 16px;
 }
 
 .slick-prev:before,
@@ -191,6 +195,10 @@ body {
 }
 .vis-caption{
    text-align:center;
+}
+
+.thick {
+    font-weight: bold;
 }
 
    </style>
@@ -220,7 +228,7 @@ body {
    <div class="collapse in" id="jumbotron_collapse">
       <div class="jumbotron">
          <div class="container">
-            <h3><b>CSCI 5839 Natural Language Visualization Project</b></h3>
+            <h3 class="thick">CSCI 5839 Natural Language Visualization Project</h3>
             <p>
                This is a prototype of a tool that produces data visualizations based on user-created,
                natural language queries for specific datasets. The query is built from a bank of
@@ -232,18 +240,22 @@ body {
             </p>
             <p>
                Please use the tool to answer a few questions about each dataset. The goal is to get
-               visualization(s) that answer the queries you build (aka this is when you have successfully
+               visualization(s) that answer the queries you build (i.e., this is when you have successfully
                completed the task).
             </p>
-            <h4><b>Data Set:</b> {{models.dataSetInfo.title}}</h4>
+            <h4 class="thick">Data Set: {{models.dataSetInfo.title}}</h4>
             <p>
                {{models.dataSetInfo.desc}}
             </p>
-            Questions:
+            <p>
+               Questions:
+            </p>
             <ul class="questions">
                <li ng-repeat="question in models.questions">{{question}}</li>
             </ul>
-            Notes:
+            <p>
+               Notes:
+            </p>
             <ul>
                <li>
                   This prototype only provides output for specific pre-defined queries based on the provided
@@ -257,9 +269,9 @@ body {
                   The order of the keywords in the "Query Builder" does not matter.
                </li>
             </ul><br />
-            <p>
-               <b>Click the collapse button in the upper right corner to dismiss this message.</b>
-            </p>
+            <h5 class="thick">
+               Click the collapse button in the upper right corner to dismiss this message.
+            </h5>
          </div>
       </div>
    </div>
@@ -353,8 +365,8 @@ body {
                         <h3 class="panel-title ng-binding">Dynamic Visualization Builder</h3>
                      </div>
                      <div class="panel-body vis-builder-body">
-                        <img src="data/img/default.png"
-                            alt="Drag over a few Keywords to generate a Visualization"
+                        <img src="data/img/default2.png"
+                            alt="Please drag more keywords into the Query Builder"
                             ng-show="models.defaultImg"
                             style="width:100%;">
                         <img src="data/img/spinner.gif"
