@@ -106,8 +106,8 @@ data = {
                                 several countries since 1850. ",
          "questions"         : [ "What is the life expectancy for a country over time?",
                                  "What is the statistical distribution of income per capita over time?",
-                                 "For each country, plot the value of income per capita, value of life \
-                                  expectancy, and change in population over time.",
+                                 "For each country, what is the value of income per capita, \
+                                 life expectancy, and population over time?",
                                  ],
          "Data Driven Words" : ["statistical", "distribution", "country", "income per capita", "life expectancy", "population"],
          "combinations"      : [
