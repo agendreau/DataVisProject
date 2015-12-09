@@ -15,7 +15,7 @@ data = {
       },
       {
          "name": "Grammatical Elements",
-         "data": ["over", "under", "for", "and", "or", "the", "a"]
+         "data": ["over", "under", "for", "and", "or", "the", "a", "of", "each"]
       },
    ],
    "preloadWords" : [], // ["for", "country", "Value of", "income per capita", "life expectancy", "population", "over", "time"], // debug only, set to [] before committing
@@ -113,7 +113,7 @@ data = {
          "combinations"      : [
             {
                "name"      : "Task 2",
-               "question"  : "For each country, plot the value of income per capita, value of life expectancy, and change in population over time?",
+               "question"  : "For each country, what is the value of income per capita, life expectancy, and population over time?",
                "query"     : ["country", "Value of", "income per capita", "life expectancy", "population", "over", "time"],
                "img"       : [
                                 {
